@@ -34,6 +34,9 @@
           const [level, setLevel] = useState(1);
           const [experience, setExperience] = useState(0);
           const [totalPlantsSold, setTotalPlantsSold] = useState(0);
+          const [purchaseAnimation, setPurchaseAnimation] = useState(false);
+          const [purchaseMessage, setPurchaseMessage] = useState('');
+          const [moneyChange, setMoneyChange] = useState(0);
 
           const plantTypes = [
             { 
@@ -202,6 +205,11 @@
 
           const buyPlant = (plantType) => {
             if (money >= plantType.cost && plants.length < 16) {
+              // Show purchase animation
+              setPurchaseAnimation(true);
+              setMoneyChange(-plantType.cost);
+              setPurchaseMessage(`Kjøpte ${plantType.name}! ${plantType.icon}`);
+              
               setMoney(money - plantType.cost);
               const newPlant = {
                 id: Date.now() + Math.random(),
@@ -216,17 +224,36 @@
                 experience: plantType.experience
               };
               setPlants([...plants, newPlant]);
+              
+              // Reset animation after delay
+              setTimeout(() => {
+                setPurchaseAnimation(false);
+                setPurchaseMessage('');
+                setMoneyChange(0);
+              }, 1500);
             }
           };
 
           const sellPlant = (plantId) => {
             const plant = plants.find(p => p.id === plantId);
             if (plant && plant.stage === 3) {
+              // Show sale animation
+              setPurchaseAnimation(true);
+              setMoneyChange(plant.sellPrice);
+              setPurchaseMessage(`Solgte ${plant.name}! +${plant.experience} XP ${plant.icon}`);
+              
               setMoney(money + plant.sellPrice);
               setExperience(experience + plant.experience);
               setTotalPlantsSold(totalPlantsSold + 1);
               setPlants(plants.filter(p => p.id !== plantId));
               setSelectedPlant(null);
+              
+              // Reset animation after delay
+              setTimeout(() => {
+                setPurchaseAnimation(false);
+                setPurchaseMessage('');
+                setMoneyChange(0);
+              }, 1500);
             }
           };
 
@@ -326,9 +353,64 @@
                     opacity: 1;
                   }
                 }
+                
+                .money-change {
+                  animation: floatUp 1.5s ease-out forwards;
+                }
+                
+                @keyframes floatUp {
+                  0% {
+                    transform: translateY(0);
+                    opacity: 1;
+                  }
+                  100% {
+                    transform: translateY(-30px);
+                    opacity: 0;
+                  }
+                }
+                
+                .money-shake {
+                  animation: shake 0.5s ease-in-out;
+                }
+                
+                @keyframes shake {
+                  0%, 100% { transform: translateX(0); }
+                  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                  20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+                
+                .purchase-toast {
+                  animation: toastSlide 1.5s ease-out forwards;
+                }
+                
+                @keyframes toastSlide {
+                  0% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                  20% {
+                    transform: translateY(0);
+                    opacity: 1;
+                  }
+                  80% {
+                    transform: translateY(0);
+                    opacity: 1;
+                  }
+                  100% {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                  }
+                }
               `}</style>
 
               <div className="max-w-4xl mx-auto">
+                {/* Purchase Toast Notification */}
+                {purchaseMessage && (
+                  <div className="purchase-toast fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm md:text-base">
+                    {purchaseMessage}
+                  </div>
+                )}
+                
                 {/* Header */}
                 <div className="text-center mb-4 md:mb-6">
                   <h1 className="text-3xl md:text-5xl font-bold mb-2 text-emerald-900" style={{ fontFamily: "'Playfair Display', serif" }}>
@@ -337,11 +419,16 @@
                   <p className="text-emerald-700 text-sm md:text-lg italic mb-3 md:mb-4">Dyrk og selg dine egne planter</p>
                   
                   <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center items-center">
-                    <div className="bg-white/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg border-2 border-emerald-200 money-pulse">
+                    <div className={`bg-white/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg border-2 border-emerald-200 money-pulse relative ${purchaseAnimation ? 'money-shake' : ''}`}>
                       <div className="flex items-center gap-2">
                         <span className="text-lg md:text-2xl">💰</span>
                         <span className="text-lg md:text-2xl font-bold text-emerald-900">{money} kr</span>
                       </div>
+                      {moneyChange !== 0 && (
+                        <div className={`absolute -top-8 left-1/2 transform -translate-x-1/2 money-change font-bold text-lg ${moneyChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {moneyChange > 0 ? '+' : ''}{moneyChange} kr
+                        </div>
+                      )}
                     </div>
                     
                     <div className="bg-white/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-2xl shadow-lg border-2 border-purple-200">
