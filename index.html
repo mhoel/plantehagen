@@ -25,7 +25,6 @@
 
     <script type="text/babel">
         const { useState, useEffect } = React;
-        const { Sprout, Leaf, Droplet, DollarSign, ShoppingCart, Trash2 } = lucide;
 
         function PlantGardenGame() {
           const [money, setMoney] = useState(100);
@@ -41,138 +40,138 @@
               id: 'kaktus', 
               name: 'Kaktus', 
               cost: 30, 
-              sellPrice: 80, 
+              sellPrice: 50, 
               growthTime: 10000, 
               icon: '🌵',
               color: '#4ade80',
-              experience: 10,
+              experience: 8,
               unlockLevel: 1
             },
             { 
               id: 'solsikke', 
               name: 'Solsikke', 
               cost: 50, 
-              sellPrice: 150, 
+              sellPrice: 85, 
               growthTime: 15000, 
               icon: '🌻',
               color: '#fbbf24',
-              experience: 15,
+              experience: 12,
               unlockLevel: 1
             },
             { 
               id: 'rose', 
               name: 'Rose', 
-              cost: 70, 
-              sellPrice: 220, 
+              cost: 80, 
+              sellPrice: 140, 
               growthTime: 20000, 
               icon: '🌹',
               color: '#f87171',
-              experience: 25,
-              unlockLevel: 2
+              experience: 18,
+              unlockLevel: 3
             },
             { 
               id: 'tulipan', 
               name: 'Tulipan', 
-              cost: 90, 
-              sellPrice: 280, 
+              cost: 120, 
+              sellPrice: 210, 
               growthTime: 22000, 
               icon: '🌷',
               color: '#f472b6',
-              experience: 30,
-              unlockLevel: 3
+              experience: 25,
+              unlockLevel: 5
             },
             { 
               id: 'orkide', 
               name: 'Orkidé', 
-              cost: 120, 
-              sellPrice: 400, 
+              cost: 180, 
+              sellPrice: 320, 
               growthTime: 30000, 
               icon: '🌺',
               color: '#c084fc',
-              experience: 45,
-              unlockLevel: 4
+              experience: 35,
+              unlockLevel: 8
             },
             { 
               id: 'lotus', 
               name: 'Lotus', 
-              cost: 180, 
-              sellPrice: 600, 
+              cost: 280, 
+              sellPrice: 500, 
               growthTime: 35000, 
               icon: '🪷',
               color: '#fb923c',
-              experience: 60,
-              unlockLevel: 5
+              experience: 48,
+              unlockLevel: 12
             },
             { 
               id: 'hibiscus', 
               name: 'Hibiscus', 
-              cost: 250, 
-              sellPrice: 850, 
+              cost: 420, 
+              sellPrice: 750, 
               growthTime: 40000, 
               icon: '🌺',
               color: '#e11d48',
-              experience: 80,
-              unlockLevel: 6
+              experience: 65,
+              unlockLevel: 17
             },
             { 
               id: 'kirsebaer', 
               name: 'Kirsebærtre', 
-              cost: 350, 
-              sellPrice: 1200, 
+              cost: 650, 
+              sellPrice: 1150, 
               growthTime: 50000, 
               icon: '🌸',
               color: '#fda4af',
-              experience: 110,
-              unlockLevel: 8
+              experience: 90,
+              unlockLevel: 23
             },
             { 
               id: 'bonsai', 
               name: 'Bonsai', 
-              cost: 500, 
-              sellPrice: 1800, 
+              cost: 1000, 
+              sellPrice: 1750, 
               growthTime: 60000, 
               icon: '🎋',
               color: '#059669',
-              experience: 150,
-              unlockLevel: 10
+              experience: 125,
+              unlockLevel: 30
             },
             { 
               id: 'sakura', 
               name: 'Sakura', 
-              cost: 800, 
-              sellPrice: 3000, 
+              cost: 1500, 
+              sellPrice: 2600, 
               growthTime: 75000, 
               icon: '🌸',
               color: '#fbbf24',
-              experience: 220,
-              unlockLevel: 13
+              experience: 170,
+              unlockLevel: 38
             },
             { 
               id: 'palme', 
               name: 'Palme', 
-              cost: 1200, 
-              sellPrice: 4500, 
+              cost: 2300, 
+              sellPrice: 4000, 
               growthTime: 90000, 
               icon: '🌴',
               color: '#10b981',
-              experience: 300,
-              unlockLevel: 16
+              experience: 230,
+              unlockLevel: 47
             },
             { 
               id: 'gullblomst', 
               name: 'Gullblomst', 
-              cost: 2000, 
-              sellPrice: 7500, 
+              cost: 3500, 
+              sellPrice: 6000, 
               growthTime: 120000, 
               icon: '🌼',
               color: '#eab308',
-              experience: 450,
-              unlockLevel: 20
+              experience: 320,
+              unlockLevel: 58
             }
           ];
 
           const getExperienceForNextLevel = (currentLevel) => {
-            return currentLevel * 100;
+            return Math.floor(80 * Math.pow(1.15, currentLevel - 1));
           };
 
           useEffect(() => {
@@ -205,7 +204,7 @@
             if (money >= plantType.cost && plants.length < 16) {
               setMoney(money - plantType.cost);
               const newPlant = {
-                id: Date.now(),
+                id: Date.now() + Math.random(),
                 type: plantType.id,
                 name: plantType.name,
                 stage: 0,
@@ -217,7 +216,6 @@
                 experience: plantType.experience
               };
               setPlants([...plants, newPlant]);
-              setShowShop(false);
             }
           };
 
@@ -238,7 +236,7 @@
           };
 
           const getPlantSize = (stage) => {
-            const sizes = ['text-2xl', 'text-4xl', 'text-6xl', 'text-7xl'];
+            const sizes = ['text-2xl', 'text-4xl', 'text-5xl md:text-6xl', 'text-6xl md:text-7xl'];
             return sizes[stage];
           };
 
@@ -247,8 +245,20 @@
             return opacities[stage];
           };
 
+          const openShop = () => {
+            setShowShop(true);
+          };
+
+          const handlePlotClick = (plant) => {
+            if (plant) {
+              setSelectedPlant(plant);
+            } else if (plants.length < 16) {
+              setShowShop(true);
+            }
+          };
+
           return (
-            <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 p-4 font-serif">
+            <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 p-3 md:p-4 font-serif">
               <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@600;800&display=swap');
                 
@@ -274,16 +284,6 @@
                   100% { transform: scale(1); opacity: 1; }
                 }
                 
-                .shimmer {
-                  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-                  animation: shimmer 3s infinite;
-                }
-                
-                @keyframes shimmer {
-                  0% { transform: translateX(-100%); }
-                  100% { transform: translateX(100%); }
-                }
-                
                 .soil-texture {
                   background-image: 
                     repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
@@ -302,29 +302,54 @@
                   0%, 100% { transform: scale(1); }
                   50% { transform: scale(1.05); }
                 }
+                
+                .modal-backdrop {
+                  animation: fadeIn 0.2s ease-out;
+                }
+                
+                @keyframes fadeIn {
+                  from { opacity: 0; }
+                  to { opacity: 1; }
+                }
+                
+                .modal-content {
+                  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                }
+                
+                @keyframes slideUp {
+                  from { 
+                    transform: translateY(50px);
+                    opacity: 0;
+                  }
+                  to { 
+                    transform: translateY(0);
+                    opacity: 1;
+                  }
+                }
               `}</style>
 
               <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-8 relative">
-                  <h1 className="text-5xl font-bold mb-2 text-emerald-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {/* Header */}
+                <div className="text-center mb-4 md:mb-6">
+                  <h1 className="text-3xl md:text-5xl font-bold mb-2 text-emerald-900" style={{ fontFamily: "'Playfair Display', serif" }}>
                     Plantehagen
                   </h1>
-                  <p className="text-emerald-700 text-lg italic">Dyrk og selg dine egne planter</p>
+                  <p className="text-emerald-700 text-sm md:text-lg italic mb-3 md:mb-4">Dyrk og selg dine egne planter</p>
                   
-                  <div className="absolute top-0 right-0 space-y-2">
-                    <div className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border-2 border-emerald-200 money-pulse">
+                  <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center items-center">
+                    <div className="bg-white/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg border-2 border-emerald-200 money-pulse">
                       <div className="flex items-center gap-2">
-                        <span className="text-2xl">💰</span>
-                        <span className="text-2xl font-bold text-emerald-900">{money} kr</span>
+                        <span className="text-lg md:text-2xl">💰</span>
+                        <span className="text-lg md:text-2xl font-bold text-emerald-900">{money} kr</span>
                       </div>
                     </div>
                     
-                    <div className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg border-2 border-purple-200">
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="text-purple-600 font-bold text-sm">LEVEL {level}</div>
-                        <div className="text-gray-600 text-xs">({totalPlantsSold} planter solgt)</div>
+                    <div className="bg-white/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-2xl shadow-lg border-2 border-purple-200">
+                      <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-2">
+                        <div className="text-purple-600 font-bold text-xs md:text-sm">LEVEL {level}</div>
+                        <div className="text-gray-600 text-xs">({totalPlantsSold} planter)</div>
                       </div>
-                      <div className="bg-purple-100 rounded-full h-3 w-48 overflow-hidden">
+                      <div className="bg-purple-100 rounded-full h-2 md:h-3 w-32 sm:w-40 md:w-48 overflow-hidden">
                         <div 
                           className="h-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-500"
                           style={{ width: `${(experience / getExperienceForNextLevel(level)) * 100}%` }}
@@ -337,18 +362,19 @@
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-b from-amber-100 to-amber-200 rounded-3xl p-8 shadow-2xl mb-6 soil-texture border-4 border-amber-300">
-                  <div className="grid grid-cols-4 gap-4 min-h-[500px]">
+                {/* Garden Grid */}
+                <div className="bg-gradient-to-b from-amber-100 to-amber-200 rounded-2xl md:rounded-3xl p-4 md:p-8 shadow-2xl mb-4 md:mb-6 soil-texture border-3 md:border-4 border-amber-300">
+                  <div className="grid grid-cols-4 gap-2 md:gap-4 min-h-[400px] md:min-h-[500px]">
                     {[...Array(16)].map((_, index) => {
                       const plant = plants[index];
                       return (
                         <div
                           key={index}
-                          onClick={() => plant && setSelectedPlant(plant)}
+                          onClick={() => handlePlotClick(plant)}
                           className={`
-                            bg-gradient-to-b from-amber-50 to-amber-100 rounded-2xl 
+                            bg-gradient-to-b from-amber-50 to-amber-100 rounded-xl md:rounded-2xl 
                             flex items-center justify-center cursor-pointer
-                            border-3 border-amber-300 shadow-inner
+                            border-2 md:border-3 border-amber-300 shadow-inner
                             plant-container relative overflow-hidden
                             ${plant ? 'hover:shadow-xl' : 'hover:bg-amber-200'}
                           `}
@@ -359,12 +385,12 @@
                                 {plant.icon}
                               </div>
                               {plant.stage === 3 && (
-                                <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+                                <div className="absolute top-1 right-1 md:top-2 md:right-2 bg-green-500 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full text-xs font-bold shadow-lg">
                                   Klar!
                                 </div>
                               )}
-                              <div className="absolute bottom-2 left-2 right-2">
-                                <div className="bg-white/70 rounded-full h-2 overflow-hidden">
+                              <div className="absolute bottom-1 md:bottom-2 left-1 md:left-2 right-1 md:right-2">
+                                <div className="bg-white/70 rounded-full h-1.5 md:h-2 overflow-hidden">
                                   <div 
                                     className="h-full bg-gradient-to-r from-green-400 to-green-600 transition-all duration-1000"
                                     style={{ width: `${(plant.stage / 3) * 100}%` }}
@@ -373,7 +399,7 @@
                               </div>
                             </>
                           ) : (
-                            <div className="text-amber-400 text-4xl opacity-30">+</div>
+                            <div className="text-amber-400 text-3xl md:text-4xl opacity-30">+</div>
                           )}
                         </div>
                       );
@@ -381,80 +407,98 @@
                   </div>
                 </div>
 
-                <div className="flex justify-center mb-6">
+                {/* Open Shop Button */}
+                <div className="flex justify-center mb-4 md:mb-6">
                   <button
-                    onClick={() => setShowShop(!showShop)}
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-4 rounded-full font-bold text-xl shadow-xl transition-all transform hover:scale-105 flex items-center gap-3"
+                    onClick={openShop}
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl shadow-xl transition-all transform hover:scale-105 flex items-center gap-2 md:gap-3"
                   >
-                    <span className="text-2xl">🛒</span>
-                    {showShop ? 'Lukk butikk' : 'Kjøp planter'}
+                    <span className="text-xl md:text-2xl">🛒</span>
+                    Åpne butikk
                   </button>
                 </div>
 
+                {/* Shop Modal */}
                 {showShop && (
-                  <div className="bg-white rounded-3xl p-6 shadow-2xl border-4 border-green-200 mb-6">
-                    <h2 className="text-3xl font-bold mb-6 text-green-900" style={{ fontFamily: "'Playfair Display', serif" }}>
-                      <span className="text-3xl mr-2">🌱</span>
-                      Plantebutikken
-                    </h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto pr-2">
-                      {plantTypes.map(plantType => {
-                        const isUnlocked = level >= plantType.unlockLevel;
-                        const canAfford = money >= plantType.cost && plants.length < 16;
-                        
-                        return (
-                          <button
-                            key={plantType.id}
-                            onClick={() => isUnlocked && buyPlant(plantType)}
-                            disabled={!isUnlocked || !canAfford}
-                            className={`
-                              p-4 rounded-2xl border-3 transition-all transform relative
-                              ${isUnlocked && canAfford
-                                ? 'bg-white hover:shadow-xl hover:scale-105 cursor-pointer border-green-300'
-                                : 'bg-gray-100 cursor-not-allowed opacity-60 border-gray-300'
-                              }
-                            `}
-                          >
-                            {!isUnlocked && (
-                              <div className="absolute top-2 right-2 bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                                Lvl {plantType.unlockLevel}
+                  <div className="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 z-50" onClick={() => setShowShop(false)}>
+                    <div className="modal-content bg-white rounded-t-3xl sm:rounded-3xl p-4 md:p-6 w-full sm:max-w-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-green-200" onClick={e => e.stopPropagation()}>
+                      <div className="flex justify-between items-center mb-4 md:mb-6">
+                        <h2 className="text-2xl md:text-3xl font-bold text-green-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+                          <span className="text-2xl md:text-3xl mr-2">🌱</span>
+                          Plantebutikken
+                        </h2>
+                        <button 
+                          onClick={() => setShowShop(false)}
+                          className="text-gray-500 hover:text-gray-700 text-3xl leading-none"
+                        >
+                          ×
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+                        {plantTypes.map(plantType => {
+                          const isUnlocked = level >= plantType.unlockLevel;
+                          const canAfford = money >= plantType.cost && plants.length < 16;
+                          
+                          return (
+                            <button
+                              key={plantType.id}
+                              onClick={() => isUnlocked && buyPlant(plantType)}
+                              disabled={!isUnlocked || !canAfford}
+                              className={`
+                                p-3 md:p-4 rounded-xl md:rounded-2xl border-2 md:border-3 transition-all transform relative
+                                ${isUnlocked && canAfford
+                                  ? 'bg-white hover:shadow-xl hover:scale-105 cursor-pointer border-green-300'
+                                  : 'bg-gray-100 cursor-not-allowed opacity-60 border-gray-300'
+                                }
+                              `}
+                            >
+                              {!isUnlocked && (
+                                <div className="absolute top-1 md:top-2 right-1 md:right-2 bg-purple-500 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full text-xs font-bold">
+                                  Lvl {plantType.unlockLevel}
+                                </div>
+                              )}
+                              <div className={`text-3xl md:text-4xl mb-1 md:mb-2 ${!isUnlocked ? 'grayscale' : ''}`}>
+                                {plantType.icon}
                               </div>
-                            )}
-                            <div className={`text-4xl mb-2 ${!isUnlocked ? 'grayscale' : ''}`}>
-                              {plantType.icon}
-                            </div>
-                            <h3 className="font-bold text-lg mb-2 text-gray-800">{plantType.name}</h3>
-                            {isUnlocked ? (
-                              <div className="space-y-1 text-sm">
-                                <p className="text-green-700 font-semibold">Pris: {plantType.cost} kr</p>
-                                <p className="text-blue-700">Selges: {plantType.sellPrice} kr</p>
-                                <p className="text-purple-700 font-semibold">+{plantType.experience} XP</p>
-                                <p className="text-gray-600 text-xs">Vokser: {plantType.growthTime / 1000}s</p>
-                              </div>
-                            ) : (
-                              <p className="text-gray-500 text-sm font-semibold">Låses opp på level {plantType.unlockLevel}</p>
-                            )}
-                          </button>
-                        );
-                      })}
+                              <h3 className="font-bold text-sm md:text-lg mb-1 md:mb-2 text-gray-800">{plantType.name}</h3>
+                              {isUnlocked ? (
+                                <div className="space-y-0.5 md:space-y-1 text-xs md:text-sm">
+                                  <p className="text-green-700 font-semibold">💰 {plantType.cost} kr</p>
+                                  <p className="text-blue-700">💵 {plantType.sellPrice} kr</p>
+                                  <p className="text-purple-700 font-semibold">⭐ +{plantType.experience} XP</p>
+                                  <p className="text-gray-600 text-xs">⏱️ {plantType.growthTime / 1000}s</p>
+                                </div>
+                              ) : (
+                                <p className="text-gray-500 text-xs md:text-sm font-semibold">Låses opp lvl {plantType.unlockLevel}</p>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <div className="mt-4 md:mt-6 p-3 md:p-4 bg-green-50 rounded-xl border-2 border-green-200">
+                        <p className="text-xs md:text-sm text-green-800 text-center">
+                          💡 Tips: Klikk flere ganger for å kjøpe flere planter av samme type!
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
 
+                {/* Plant Detail Modal */}
                 {selectedPlant && (
-                  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50" onClick={() => setSelectedPlant(null)}>
-                    <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border-4 border-green-300" onClick={e => e.stopPropagation()}>
+                  <div className="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 z-50" onClick={() => setSelectedPlant(null)}>
+                    <div className="modal-content bg-white rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full sm:max-w-md shadow-2xl border-4 border-green-300" onClick={e => e.stopPropagation()}>
                       <div className="text-center">
-                        <div className="text-8xl mb-4">{selectedPlant.icon}</div>
-                        <h3 className="text-3xl font-bold mb-4 text-gray-800" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        <div className="text-7xl md:text-8xl mb-4">{selectedPlant.icon}</div>
+                        <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800" style={{ fontFamily: "'Playfair Display', serif" }}>
                           {selectedPlant.name}
                         </h3>
                         
                         <div className="bg-green-50 rounded-2xl p-4 mb-6 border-2 border-green-200">
-                          <p className="text-lg mb-2 text-gray-700">
+                          <p className="text-base md:text-lg mb-2 text-gray-700">
                             Vekststadium: {selectedPlant.stage}/3
                           </p>
-                          <div className="bg-white rounded-full h-4 overflow-hidden mb-4">
+                          <div className="bg-white rounded-full h-3 md:h-4 overflow-hidden mb-4">
                             <div 
                               className="h-full bg-gradient-to-r from-green-400 to-green-600"
                               style={{ width: `${(selectedPlant.stage / 3) * 100}%` }}
@@ -462,7 +506,7 @@
                           </div>
                           {selectedPlant.stage === 3 ? (
                             <div>
-                              <p className="text-green-700 font-bold text-xl mb-2">✓ Fullvokst og klar til salg!</p>
+                              <p className="text-green-700 font-bold text-lg md:text-xl mb-2">✓ Fullvokst og klar til salg!</p>
                               <p className="text-purple-600 font-semibold">Gir +{selectedPlant.experience} XP</p>
                             </div>
                           ) : (
@@ -475,7 +519,7 @@
                             onClick={() => sellPlant(selectedPlant.id)}
                             disabled={selectedPlant.stage !== 3}
                             className={`
-                              flex-1 py-3 px-6 rounded-xl font-bold text-lg transition-all
+                              flex-1 py-3 px-4 md:px-6 rounded-xl font-bold text-base md:text-lg transition-all
                               ${selectedPlant.stage === 3
                                 ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg transform hover:scale-105'
                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -487,7 +531,7 @@
                           </button>
                           <button
                             onClick={() => removePlant(selectedPlant.id)}
-                            className="bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg"
+                            className="bg-red-500 hover:bg-red-600 text-white py-3 px-4 md:px-6 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg text-base md:text-lg"
                           >
                             🗑️
                           </button>
@@ -497,18 +541,19 @@
                   </div>
                 )}
 
-                <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border-2 border-emerald-200">
-                  <h3 className="font-bold text-xl mb-3 text-emerald-900 flex items-center gap-2">
+                {/* Instructions */}
+                <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg border-2 border-emerald-200">
+                  <h3 className="font-bold text-lg md:text-xl mb-3 text-emerald-900 flex items-center gap-2">
                     <span>🍃</span>
                     Hvordan spille
                   </h3>
-                  <ul className="space-y-2 text-emerald-800">
-                    <li>• Kjøp planter fra butikken med dine startpenger</li>
+                  <ul className="space-y-1.5 md:space-y-2 text-emerald-800 text-sm md:text-base">
+                    <li>• Klikk på tomme ruter eller "Åpne butikk" for å kjøpe planter</li>
+                    <li>• Klikk flere ganger på samme plante for å kjøpe flere</li>
                     <li>• Vent til plantene vokser seg store (3 stadier)</li>
-                    <li>• Klikk på fullvokste planter for å selge dem for profitt</li>
-                    <li>• Tjen erfaring (XP) når du selger planter</li>
-                    <li>• Level opp for å låse opp nye og dyrere planter</li>
-                    <li>• Dyrere planter gir mer penger og erfaring</li>
+                    <li>• Klikk på fullvokste planter for å selge dem</li>
+                    <li>• Tjen erfaring (XP) og level opp</li>
+                    <li>• Lås opp nye og mer lukrative planter</li>
                     <li>• Du kan ha opptil 16 planter samtidig (4x4 hage)</li>
                   </ul>
                 </div>
