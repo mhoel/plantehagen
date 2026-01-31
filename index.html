@@ -62,6 +62,17 @@
               unlockLevel: 1
             },
             { 
+              id: 'karse', 
+              name: 'Karse', 
+              cost: 65, 
+              sellPrice: 115, 
+              growthTime: 18000, 
+              icon: '🌿',
+              color: '#10b981',
+              experience: 15,
+              unlockLevel: 2
+            },
+            { 
               id: 'rose', 
               name: 'Rose', 
               cost: 80, 
@@ -71,6 +82,17 @@
               color: '#f87171',
               experience: 18,
               unlockLevel: 3
+            },
+            { 
+              id: 'lilje', 
+              name: 'Lilje', 
+              cost: 100, 
+              sellPrice: 175, 
+              growthTime: 21000, 
+              icon: '🌺',
+              color: '#fb7185',
+              experience: 22,
+              unlockLevel: 4
             },
             { 
               id: 'tulipan', 
@@ -84,14 +106,36 @@
               unlockLevel: 5
             },
             { 
+              id: 'nellik', 
+              name: 'Nellik', 
+              cost: 145, 
+              sellPrice: 255, 
+              growthTime: 25000, 
+              icon: '🌸',
+              color: '#ec4899',
+              experience: 30,
+              unlockLevel: 6
+            },
+            { 
               id: 'orkide', 
               name: 'Orkidé', 
               cost: 180, 
               sellPrice: 320, 
-              growthTime: 30000, 
+              growthTime: 28000, 
               icon: '🌺',
               color: '#c084fc',
               experience: 35,
+              unlockLevel: 7
+            },
+            { 
+              id: 'lavendel', 
+              name: 'Lavendel', 
+              cost: 220, 
+              sellPrice: 390, 
+              growthTime: 30000, 
+              icon: '🪻',
+              color: '#a78bfa',
+              experience: 40,
               unlockLevel: 8
             },
             { 
@@ -99,10 +143,21 @@
               name: 'Lotus', 
               cost: 280, 
               sellPrice: 500, 
-              growthTime: 35000, 
+              growthTime: 33000, 
               icon: '🪷',
               color: '#fb923c',
               experience: 48,
+              unlockLevel: 10
+            },
+            { 
+              id: 'georgine', 
+              name: 'Georgine', 
+              cost: 350, 
+              sellPrice: 620, 
+              growthTime: 36000, 
+              icon: '🌼',
+              color: '#f97316',
+              experience: 55,
               unlockLevel: 12
             },
             { 
@@ -114,7 +169,18 @@
               icon: '🌺',
               color: '#e11d48',
               experience: 65,
-              unlockLevel: 17
+              unlockLevel: 14
+            },
+            { 
+              id: 'petunia', 
+              name: 'Petunia', 
+              cost: 520, 
+              sellPrice: 930, 
+              growthTime: 45000, 
+              icon: '🌸',
+              color: '#db2777',
+              experience: 75,
+              unlockLevel: 16
             },
             { 
               id: 'kirsebaer', 
@@ -125,7 +191,18 @@
               icon: '🌸',
               color: '#fda4af',
               experience: 90,
-              unlockLevel: 23
+              unlockLevel: 18
+            },
+            { 
+              id: 'jasmin', 
+              name: 'Jasmin', 
+              cost: 800, 
+              sellPrice: 1420, 
+              growthTime: 55000, 
+              icon: '🤍',
+              color: '#fef3c7',
+              experience: 105,
+              unlockLevel: 20
             },
             { 
               id: 'bonsai', 
@@ -136,18 +213,40 @@
               icon: '🎋',
               color: '#059669',
               experience: 125,
-              unlockLevel: 30
+              unlockLevel: 23
+            },
+            { 
+              id: 'azalea', 
+              name: 'Azalea', 
+              cost: 1200, 
+              sellPrice: 2100, 
+              growthTime: 65000, 
+              icon: '🌺',
+              color: '#f472b6',
+              experience: 145,
+              unlockLevel: 26
             },
             { 
               id: 'sakura', 
               name: 'Sakura', 
               cost: 1500, 
               sellPrice: 2600, 
-              growthTime: 75000, 
+              growthTime: 70000, 
               icon: '🌸',
               color: '#fbbf24',
               experience: 170,
-              unlockLevel: 38
+              unlockLevel: 29
+            },
+            { 
+              id: 'magnolia', 
+              name: 'Magnolia', 
+              cost: 1850, 
+              sellPrice: 3250, 
+              growthTime: 80000, 
+              icon: '🌸',
+              color: '#fde68a',
+              experience: 200,
+              unlockLevel: 32
             },
             { 
               id: 'palme', 
@@ -158,7 +257,18 @@
               icon: '🌴',
               color: '#10b981',
               experience: 230,
-              unlockLevel: 47
+              unlockLevel: 36
+            },
+            { 
+              id: 'bambus', 
+              name: 'Bambus', 
+              cost: 2850, 
+              sellPrice: 4950, 
+              growthTime: 100000, 
+              icon: '🎍',
+              color: '#22c55e',
+              experience: 270,
+              unlockLevel: 40
             },
             { 
               id: 'gullblomst', 
@@ -169,7 +279,18 @@
               icon: '🌼',
               color: '#eab308',
               experience: 320,
-              unlockLevel: 58
+              unlockLevel: 45
+            },
+            { 
+              id: 'paradisfugl', 
+              name: 'Paradisfugl', 
+              cost: 4300, 
+              sellPrice: 7400, 
+              growthTime: 140000, 
+              icon: '🌺',
+              color: '#f97316',
+              experience: 380,
+              unlockLevel: 50
             }
           ];
 
@@ -403,14 +524,14 @@
                 }
               `}</style>
 
+              {/* Purchase Toast Notification - Above everything */}
+              {purchaseMessage && (
+                <div className="purchase-toast fixed top-4 left-1/2 transform -translate-x-1/2 z-[100] bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm md:text-base">
+                  {purchaseMessage}
+                </div>
+              )}
+              
               <div className="max-w-4xl mx-auto">
-                {/* Purchase Toast Notification */}
-                {purchaseMessage && (
-                  <div className="purchase-toast fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-2xl font-bold text-sm md:text-base">
-                    {purchaseMessage}
-                  </div>
-                )}
-                
                 {/* Header */}
                 <div className="text-center mb-4 md:mb-6">
                   <h1 className="text-3xl md:text-5xl font-bold mb-2 text-emerald-900" style={{ fontFamily: "'Playfair Display', serif" }}>
@@ -509,7 +630,7 @@
                 {showShop && (
                   <div className="modal-backdrop fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 z-50" onClick={() => setShowShop(false)}>
                     <div className="modal-content bg-white rounded-t-3xl sm:rounded-3xl p-4 md:p-6 w-full sm:max-w-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-green-200" onClick={e => e.stopPropagation()}>
-                      <div className="flex justify-between items-center mb-4 md:mb-6">
+                      <div className="flex justify-between items-center mb-4 md:mb-6 sticky top-0 bg-white pb-2 z-10">
                         <h2 className="text-2xl md:text-3xl font-bold text-green-900" style={{ fontFamily: "'Playfair Display', serif" }}>
                           <span className="text-2xl md:text-3xl mr-2">🌱</span>
                           Plantebutikken
@@ -520,6 +641,21 @@
                         >
                           ×
                         </button>
+                      </div>
+                      
+                      {/* Money display inside shop */}
+                      <div className="mb-4 flex justify-center">
+                        <div className={`bg-emerald-50 border-2 border-emerald-200 px-4 md:px-6 py-2 md:py-3 rounded-full shadow-lg relative ${purchaseAnimation ? 'money-shake' : ''}`}>
+                          <div className="flex items-center gap-2">
+                            <span className="text-lg md:text-2xl">💰</span>
+                            <span className="text-lg md:text-2xl font-bold text-emerald-900">{money} kr</span>
+                          </div>
+                          {moneyChange !== 0 && (
+                            <div className={`absolute -top-8 left-1/2 transform -translate-x-1/2 money-change font-bold text-lg whitespace-nowrap ${moneyChange > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                              {moneyChange > 0 ? '+' : ''}{moneyChange} kr
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
                         {plantTypes.map(plantType => {
